@@ -1,0 +1,36 @@
+/appdata:
+    put:
+        tags:
+            - AppData
+        summary: "to create new or update existing record"
+        description:
+            save.
+        parameters:
+          - name: body
+            in: body
+            schema:
+                type: object
+                properties:
+                    data:
+                        type: object
+                        properties:
+                            id:
+                                type: string
+                                example: null
+                            code:
+                                type: string
+                                example: "test"
+                            name:
+                                type: string
+                                example: "test"
+                            active:
+                                type: string
+                                example: true
+
+        responses:
+            200:
+                description: "status:1 is success; status: 0 is failure;"
+            400:
+                description: "Invalid Data"
+            500:
+                description: "Internal server error"

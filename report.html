@@ -1,0 +1,1802 @@
+
+<html>
+    <head>
+        <title>Mocha</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style type="text/css">
+        @charset "utf-8";
+
+body {
+  margin:0;
+}
+
+#mocha {
+  font: 20px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 60px 50px;
+}
+
+#mocha ul,
+#mocha li {
+  margin: 0;
+  padding: 0;
+}
+
+#mocha ul {
+  list-style: none;
+}
+
+#mocha h1,
+#mocha h2 {
+  margin: 0;
+}
+
+#mocha h1 {
+  margin-top: 15px;
+  font-size: 1em;
+  font-weight: 200;
+}
+
+#mocha h1 a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#mocha h1 a:hover {
+  text-decoration: underline;
+}
+
+#mocha .suite .suite h1 {
+  margin-top: 0;
+  font-size: .8em;
+}
+
+#mocha .hidden {
+  display: none;
+}
+
+#mocha h2 {
+  font-size: 12px;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+#mocha .suite {
+  margin-left: 15px;
+}
+
+#mocha .test {
+  margin-left: 15px;
+  overflow: hidden;
+}
+
+#mocha .test.pending:hover h2::after {
+  content: '(pending)';
+  font-family: arial, sans-serif;
+}
+
+#mocha .test.pass.medium .duration {
+  background: #c09853;
+}
+
+#mocha .test.pass.slow .duration {
+  background: #b94a48;
+}
+
+#mocha .test.pass::before {
+  content: '✓';
+  font-size: 12px;
+  display: block;
+  float: left;
+  margin-right: 5px;
+  color: #00d6b2;
+}
+
+#mocha .test.pass .duration {
+  font-size: 9px;
+  margin-left: 5px;
+  padding: 2px 5px;
+  color: #fff;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.2);
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.2);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.2);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+
+#mocha .test.pass.fast .duration {
+  display: none;
+}
+
+#mocha .test.pending {
+  color: #0b97c4;
+}
+
+#mocha .test.pending::before {
+  content: '◦';
+  color: #0b97c4;
+}
+
+#mocha .test.fail {
+  color: #c00;
+}
+
+#mocha .test.fail pre {
+  color: black;
+}
+
+#mocha .test.fail::before {
+  content: '✖';
+  font-size: 12px;
+  display: block;
+  float: left;
+  margin-right: 5px;
+  color: #c00;
+}
+
+#mocha .test pre.error {
+  color: #c00;
+  max-height: 300px;
+  overflow: auto;
+}
+
+#mocha .test .html-error {
+  overflow: auto;
+  color: black;
+  line-height: 1.5;
+  display: block;
+  float: left;
+  clear: left;
+  font: 12px/1.5 monaco, monospace;
+  margin: 5px;
+  padding: 15px;
+  border: 1px solid #eee;
+  max-width: 85%; /*(1)*/
+  max-width: -webkit-calc(100% - 42px);
+  max-width: -moz-calc(100% - 42px);
+  max-width: calc(100% - 42px); /*(2)*/
+  max-height: 300px;
+  word-wrap: break-word;
+  border-bottom-color: #ddd;
+  -webkit-box-shadow: 0 1px 3px #eee;
+  -moz-box-shadow: 0 1px 3px #eee;
+  box-shadow: 0 1px 3px #eee;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+#mocha .test .html-error pre.error {
+  border: none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-box-shadow: 0;
+  -moz-box-shadow: 0;
+  box-shadow: 0;
+  padding: 0;
+  margin: 0;
+  margin-top: 18px;
+  max-height: none;
+}
+
+/**
+ * (1): approximate for browsers not supporting calc
+ * (2): 42 = 2*15 + 2*10 + 2*1 (padding + margin + border)
+ *      ^^ seriously
+ */
+#mocha .test pre {
+  display: block;
+  float: left;
+  clear: left;
+  font: 12px/1.5 monaco, monospace;
+  margin: 5px;
+  padding: 15px;
+  border: 1px solid #eee;
+  max-width: 85%; /*(1)*/
+  max-width: -webkit-calc(100% - 42px);
+  max-width: -moz-calc(100% - 42px);
+  max-width: calc(100% - 42px); /*(2)*/
+  word-wrap: break-word;
+  border-bottom-color: #ddd;
+  -webkit-box-shadow: 0 1px 3px #eee;
+  -moz-box-shadow: 0 1px 3px #eee;
+  box-shadow: 0 1px 3px #eee;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+#mocha .test h2 {
+  position: relative;
+}
+
+#mocha .test a.replay {
+  position: absolute;
+  top: 3px;
+  right: 0;
+  text-decoration: none;
+  vertical-align: middle;
+  display: block;
+  width: 15px;
+  height: 15px;
+  line-height: 15px;
+  text-align: center;
+  background: #eee;
+  font-size: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  -webkit-transition:opacity 200ms;
+  -moz-transition:opacity 200ms;
+  -o-transition:opacity 200ms;
+  transition: opacity 200ms;
+  opacity: 0.3;
+  color: #888;
+}
+
+#mocha .test:hover a.replay {
+  opacity: 1;
+}
+
+#mocha-report.pass .test.fail {
+  display: none;
+}
+
+#mocha-report.fail .test.pass {
+  display: none;
+}
+
+#mocha-report.pending .test.pass,
+#mocha-report.pending .test.fail {
+  display: none;
+}
+#mocha-report.pending .test.pass.pending {
+  display: block;
+}
+
+#mocha-error {
+  color: #c00;
+  font-size: 1.5em;
+  font-weight: 100;
+  letter-spacing: 1px;
+}
+
+#mocha-stats {
+  position: fixed;
+  top: 15px;
+  right: 10px;
+  font-size: 12px;
+  margin: 0;
+  color: #888;
+  z-index: 1;
+}
+
+#mocha-stats .progress {
+  float: right;
+  padding-top: 0;
+
+  /**
+   * Set safe initial values, so mochas .progress does not inherit these
+   * properties from Bootstrap .progress (which causes .progress height to
+   * equal line height set in Bootstrap).
+   */
+  height: auto;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  background-color: initial;
+}
+
+#mocha-stats em {
+  color: black;
+}
+
+#mocha-stats a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#mocha-stats a:hover {
+  border-bottom: 1px solid #eee;
+}
+
+#mocha-stats li {
+  display: inline-block;
+  margin: 0 5px;
+  list-style: none;
+  padding-top: 11px;
+}
+
+#mocha-stats canvas {
+  width: 40px;
+  height: 40px;
+}
+
+#mocha code .comment { color: #ddd; }
+#mocha code .init { color: #2f6fad; }
+#mocha code .string { color: #5890ad; }
+#mocha code .keyword { color: #8a6343; }
+#mocha code .number { color: #2f6fad; }
+
+@media screen and (max-device-width: 480px) {
+  #mocha {
+    margin: 60px 0px;
+  }
+
+  #mocha #stats {
+    position: absolute;
+  }
+}
+#mocha .test.pass pre {
+    display: none;
+}
+
+#mocha .test.fail pre {
+    display: none;
+}
+
+#mocha .test pre.error {
+    display: block;
+}
+
+#mocha .test .html-error pre.error {
+    box-shadow: none;
+}
+
+#mocha .test:hover h2:after {
+    color: #888888;
+    content: "(view source)";
+    font-family: arial;
+    font-size: 12px;
+    position: relative;
+    right: -10px;
+    top: 0;
+}
+
+#mocha .test.pass.pending h2 {
+    cursor: auto;
+}
+
+#mocha .mocha-header {
+    right: 30px;
+    position: fixed;
+    top: 15px;
+    font-size: 14px;
+    margin: 0;
+    color: #888;
+    z-index: 1;
+}
+
+#mocha .mocha-header em {
+    font-style: normal;
+    color: black;
+}
+
+#mocha .mocha-header ul {
+    display: inline-block;
+}
+
+#mocha .mocha-stats li {
+    display: inline-block;
+    margin: 0 5px;
+    list-style: none;
+    padding-top: 11px;
+}
+
+#mocha .mocha-menu {
+    margin-right: 10px;
+}
+
+#mocha .mocha-menu li {
+    display: inline-block;
+    margin-left: 10px;
+    list-style: none;
+}
+
+#mocha .mocha-menu li span {
+    display: inline-block;
+    cursor: pointer;
+    color: #fff;
+    font-size: 14px;
+    padding: 3px 7px 2px;
+    box-shadow: 1px 1px 3px rgba(0,0,0,.2);
+    border-radius: 5px;
+    user-select: none;
+}
+
+#mocha .mocha-menu li span.checked {
+    box-shadow: inset 1px 1px 3px rgba(0,0,0,.2);
+}
+
+#mocha .toggle-passes {
+    background: #b94a48;
+}
+
+        </style>
+    </head>
+    <body>
+        <div id="mocha">
+            <div class="mocha-header">
+                <ul class="mocha-menu">
+                    <li><span id="toggle-passes" class="toggle-passes">show failures only</span></li>
+                </ul>
+                <ul class="mocha-stats">
+                    <li class="passes">passes: <em>61</em></li>
+                    <li class="pending">pending: <em>0</em></li>
+                    <li class="failures">failures: <em>1</em></li>
+                    <li class="duration">duration: <em>1m 15.3s</em></li>
+                </ul>
+            </div>
+            <ul id="report"><li class="suite"><h1>****----- AUTH --------******</h1><ul><li class="test pass slow"><h2>jwt token Authentication<span class="duration">2935ms</span></h2><pre><code>this.timeout(5000);
+api.post(&#x27;/api/auth&#x27;)
+   .send(
+    {
+      &#x22;data&#x22;: {
+        &#x22;userId&#x22;: &#x22;support@digitallynctech.com&#x22;,
+        &#x22;password&#x22;: &#x22;1234&#x22;,
+        &#x22;grpcode&#x22;: &#x22;DLTECH&#x22;,
+        &#x22;provider&#x22;: &#x22;email&#x22;
+      }
+    }
+    )
+    //.expect(200)
+   .end(function(err, res) {
+    
+    if(err){
+      console.log(err);
+    }else{
+     token = res.body.data.jwt; 
+     console.log(token);
+   // console.log(res);
+    }
+    //  console.log(res);
+   //  console.log (token);
+   done();
+  });</code></pre></li><li class="test pass slow"><h2>Auth for Forgot Passwprd<span class="duration">623ms</span></h2><pre><code>this.timeout(5000);
+    api.put(&#x27;/api/auth/forgotpassword&#x27;)
+   // .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+     {
+      &#x22;data&#x22;: {
+        &#x22;email&#x22;: &#x22;support@digitallynctech.com&#x22;,
+        &#x22;grpcode&#x22;: &#x22;DLTECH&#x22;
+      }
+     }
+     )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+    if(err){
+      console.log(err);
+    }else{
+      console.log(res.body.data);
+    }
+    
+     done();
+   });</code></pre></li><li class="test pass fast"><h2>Auth for Reset Passwprd<span class="duration">11ms</span></h2><pre><code>this.timeout(5000);
+    api.post(&#x27;/api/auth/resetpassword&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+     {
+      &#x22;data&#x22;: {
+        &#x22;email&#x22;: &#x22;support@digitallynctech.com&#x22;,
+        &#x22;grpcode&#x22;: &#x22;DLTECH&#x22;
+      }
+     }
+     )
+    .expect(404)
+   // .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(err)
+     }
+     console.log();
+     done();
+   });</code></pre></li></ul></li><li class="suite"><h1>****----- AGENCY GRP --------******</h1><ul><li class="test pass slow"><h2>jwt token Authentication<span class="duration">2430ms</span></h2><pre><code>this.timeout(5000);
+api.post(&#x27;/api/auth&#x27;)
+   .send(
+    {
+      &#x22;data&#x22;: {
+        &#x22;userId&#x22;: &#x22;support@digitallynctech.com&#x22;,
+        &#x22;password&#x22;: &#x22;1234&#x22;,
+        &#x22;grpcode&#x22;: &#x22;DLTECH&#x22;,
+        &#x22;provider&#x22;: &#x22;email&#x22;
+      }
+    }
+    )
+    .end(function(err, res) {
+      
+      if(err){
+        console.log(err);
+      }else{
+       token = res.body.data.jwt; 
+       console.log(token);
+      }
+  //   .expect(200)
+  //  .end(function(err, res) {
+  //    token = res.body.data.jwt; 
+  //    //console.log(res);
+  //    console.log(token);
+   done();
+  });</code></pre></li><li class="test pass fast"><h2>Creating(or)Update  Record<span class="duration">21ms</span></h2><pre><code>this.timeout(8000);
+    api.put(&#x27;/api/agencygrp&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+        {
+            &#x22;data&#x22;: {
+                &#x22;id&#x22;:null,
+              &#x22;name&#x22;: &#x22;CMP0001&#x22;,
+              &#x22;title&#x22;: &#x22;Digital Lync&#x22;,
+              &#x22;logo&#x22;: null,
+              &#x22;status&#x22;: true,
+              &#x22;branch&#x22;: {
+                &#x22;name&#x22;: &#x22;Gachibowli&#x22;,
+                &#x22;phone&#x22;: 8008080080,
+                &#x22;mobile&#x22;: 8008080080,
+                &#x22;email&#x22;: &#x22;abc@gmail.com&#x22;,
+                &#x22;pan&#x22;: &#x22;effpd5462n&#x22;,
+                &#x22;tan&#x22;: &#x22;&#x22;,
+                &#x22;gstin&#x22;: &#x22;&#x22;,
+                &#x22;lat&#x22;: 16.32153940,
+                &#x22;lng&#x22;: 80.43401620,
+                &#x22;city&#x22;: &#x22;Guntur&#x22;,
+                &#x22;state&#x22;: &#x22;Andhra Pradesh&#x22;,
+                &#x22;country&#x22;: &#x22;India&#x22;,
+                &#x22;zipcode&#x22;: &#x22;522647&#x22;,
+                &#x22;isMain&#x22;: true
+              },
+              &#x22;profile&#x22;: {
+                &#x22;name&#x22;: &#x22;abcd&#x22;,
+                &#x22;mobile&#x22;: &#x22;8008012345&#x22;,
+                &#x22;email&#x22;: &#x22;abc@gmail.com&#x22;,
+                &#x22;aadhar&#x22;: &#x22;123456781234&#x22;,
+                &#x22;password&#x22;: &#x22;1234&#x22;,
+                &#x22;role&#x22;: &#x22;admin&#x22;,
+                &#x22;active&#x22;: true,
+                &#x22;address&#x22;: {
+                  &#x22;id&#x22;: &#x22;JB1TJWGS&#x22;
+                },
+                &#x22;branch&#x22;: {
+                  &#x22;id&#x22;: &#x22;DL_MAIN_BRANCH&#x22;
+                },
+                &#x22;img&#x22;: {
+                  &#x22;id&#x22;: &#x22;SUPPORT_DL&#x22;
+                }
+              }
+            }
+          }
+     )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(err);
+     }else{
+     console.log(res.body);
+     }
+     done();
+   });</code></pre></li><li class="test pass slow"><h2>Get User RECORD<span class="duration">1142ms</span></h2><pre><code>this.timeout(5000);
+        api.get(&#x27;/api/agencygrp/DL&#x27;)
+        .set({&#x27;Authorization&#x27;:token}) 
+        .expect(200)
+           .end(function(err, res) {
+           if(err){
+                console.log(err);
+           }else{ 
+                console.log(res.body);
+           }
+           done();
+          });</code></pre></li><li class="test pass slow"><h2>Get ALL Records<span class="duration">568ms</span></h2><pre><code>this.timeout(5000);
+    api.post(&#x27;/api/agencygrp&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+      {  }
+      )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(err)
+     }else{
+     console.log(res.body);
+     }
+     done();
+   });</code></pre></li></ul></li><li class="suite"><h1>****----- Apex Testing --------******</h1><ul><li class="test pass slow"><h2>jwt token Authentication<span class="duration">2351ms</span></h2><pre><code>this.timeout(5000);
+api.post(&#x27;/api/auth&#x27;)
+   .send(
+    {
+      &#x22;data&#x22;: {
+        &#x22;userId&#x22;: &#x22;support@digitallynctech.com&#x22;,
+        &#x22;password&#x22;: &#x22;1234&#x22;,
+        &#x22;grpcode&#x22;: &#x22;DLTECH&#x22;,
+        &#x22;provider&#x22;: &#x22;email&#x22;
+      }
+    }
+    )
+    .end(function(err, res) {
+      
+      if(err){
+        console.log(err);
+      }else{
+       token = res.body.data.jwt; 
+       console.log(token);
+      }
+  //   .expect(200)
+  //  .end(function(err, res) {
+  //    token = res.body.data.jwt; 
+  //    //console.log(res);
+  //    console.log(token);
+   done();
+  });</code></pre></li><li class="test pass fast"><h2>Creating(or)Update  Record<span class="duration">6ms</span></h2><pre><code>this.timeout(8000);
+    api.put(&#x27;/api/apex&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+        {
+            &#x22;data&#x22;: {
+                &#x22;name&#x22;: &#x22;test&#x22;,
+                &#x22;reportUrl&#x22;: &#x22;reportUrl&#x22;,
+                &#x22;apexReportDataList&#x22;: [
+                  {
+                    &#x22;id&#x22;: &#x22;0&#x22;,
+                    &#x22;name&#x22;: &#x22;name&#x22;,
+                    &#x22;status&#x22;: true
+                  }
+                ]
+              }
+          }
+     )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(res.body.data);
+     }else{
+     console.log(res.body.data);
+     }
+     done();
+   });</code></pre></li><li class="test pass fast"><h2>Get Particular Apex RECORD<span class="duration">11ms</span></h2><pre><code>this.timeout(5000);
+        api.get(&#x27;/api/apex/JBNG0BHA&#x27;)
+        .set({&#x27;Authorization&#x27;:token}) 
+        .expect(200)
+           .end(function(err, res) {
+           if(err){
+                console.log(res.body.data);
+           }else{ 
+                console.log(res.body.data);
+           }
+           done();
+          });</code></pre></li><li class="test pass fast"><h2>Get ALL Records from apex<span class="duration">6ms</span></h2><pre><code>this.timeout(5000);
+    api.post(&#x27;/api/apex&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+      {  }
+      )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(res.body.data)
+     }else{
+     console.log(res.body.data);
+     }
+     done();
+   });</code></pre></li></ul></li><li class="suite"><h1>****----- APP --------******</h1><ul><li class="test pass slow"><h2>jwt token Authentication<span class="duration">2436ms</span></h2><pre><code>this.timeout(5000);
+api.post(&#x27;/api/auth&#x27;)
+   .send(
+    {
+      &#x22;data&#x22;: {
+        &#x22;userId&#x22;: &#x22;support@digitallynctech.com&#x22;,
+        &#x22;password&#x22;: &#x22;1234&#x22;,
+        &#x22;grpcode&#x22;: &#x22;DLTECH&#x22;,
+        &#x22;provider&#x22;: &#x22;email&#x22;
+      }
+    }
+    )
+    .end(function(err, res) {
+      
+      if(err){
+        console.log(err);
+      }else{
+       token = res.body.data.jwt; 
+       console.log(token);
+      }
+  //   .expect(200)
+  //  .end(function(err, res) {
+  //    token = res.body.data.jwt; 
+   
+  //    //console.log(res);
+  //    console.log(token);
+   done();
+  });</code></pre></li><li class="test pass fast"><h2>Creating(or)Update  Branch<span class="duration">15ms</span></h2><pre><code>this.timeout(8000);
+    api.put(&#x27;/api/appmenu&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+       
+        {
+            &#x22;data&#x22;: [
+              {
+                &#x22;name&#x22;: &#x22;branchname&#x22;,
+                &#x22;menu&#x22;: &#x22;/superadmin&#x22;,
+                &#x22;role&#x22;: &#x22;superadmin&#x22;,
+                &#x22;active&#x22;: true,
+                &#x22;priority&#x22;: 1
+              }
+            ]
+          }
+          
+     )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(err);
+     }else{
+     console.log(res.body);
+     }
+     done();
+   });</code></pre></li><li class="test pass slow"><h2>Get APP RECORD<span class="duration">602ms</span></h2><pre><code>this.timeout(5000);
+
+        api.get(&#x27;/api/appmenu/Super_Admin&#x27;)
+
+        .set({&#x27;Authorization&#x27;:token}) 
+
+        .expect(200)
+
+           .end(function(err, res) {
+           if(err){
+                console.log(err);
+           }else{ 
+                console.log(res.body);
+           }
+           done();
+          });</code></pre></li></ul></li><li class="suite"><h1>****----- App Data --------******</h1><ul><li class="test pass slow"><h2>jwt token Authentication<span class="duration">2452ms</span></h2><pre><code>this.timeout(5000);
+api.post(&#x27;/api/auth&#x27;)
+   .send(
+    {
+      &#x22;data&#x22;: {
+        &#x22;userId&#x22;: &#x22;support@digitallynctech.com&#x22;,
+        &#x22;password&#x22;: &#x22;1234&#x22;,
+        &#x22;grpcode&#x22;: &#x22;DLTECH&#x22;,
+        &#x22;provider&#x22;: &#x22;email&#x22;
+      }
+    }
+    )
+    .end(function(err, res) {
+      
+      if(err){
+        console.log(err);
+      }else{
+       token = res.body.data.jwt; 
+       console.log(token);
+      }
+  //   .expect(200)
+  //  .end(function(err, res) {
+  //    token = res.body.data.jwt; 
+  //    //console.log(res);
+  //    console.log(token);
+   done();
+  });</code></pre></li><li class="test pass slow"><h2>Creating(or)Update  Record<span class="duration">1535ms</span></h2><pre><code>this.timeout(8000);
+    api.put(&#x27;/api/appdata&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+        {
+            &#x22;data&#x22;: {
+              &#x22;code&#x22;: &#x22;AppData&#x22;,
+              &#x22;name&#x22;: &#x22;AppDATA&#x22;,
+              &#x22;active&#x22;: true
+            }
+          }
+     )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(err);
+     }else{
+     console.log(res.body.data);
+     }
+     done();
+   });</code></pre></li><li class="test pass slow"><h2>Get Particular App Data RECORD<span class="duration">613ms</span></h2><pre><code>this.timeout(5000);
+        api.get(&#x27;/api/appdata/JAXRN70I&#x27;)
+        .set({&#x27;Authorization&#x27;:token}) 
+        .expect(200)
+           .end(function(err, res) {
+           if(err){
+                console.log(err);
+           }else{ 
+                console.log(res.body.data);
+           }
+           done();
+          });</code></pre></li><li class="test pass slow"><h2>Get ALL Records from appdata<span class="duration">618ms</span></h2><pre><code>this.timeout(5000);
+    api.post(&#x27;/api/appdata&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+      {  }
+      )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(err)
+     }else{
+     console.log(res.body.data);
+     }
+     done();
+   });</code></pre></li></ul></li><li class="suite"><h1>****----- BRANCH --------******</h1><ul><li class="test pass slow"><h2>jwt token Authentication<span class="duration">2396ms</span></h2><pre><code>this.timeout(5000);
+api.post(&#x27;/api/auth&#x27;)
+   .send(
+    {
+      &#x22;data&#x22;: {
+        &#x22;userId&#x22;: &#x22;support@digitallynctech.com&#x22;,
+        &#x22;password&#x22;: &#x22;1234&#x22;,
+        &#x22;grpcode&#x22;: &#x22;DLTECH&#x22;,
+        &#x22;provider&#x22;: &#x22;email&#x22;
+      }
+    }
+    )
+    .end(function(err, res) {
+      
+      if(err){
+        console.log(err);
+      }else{
+       token = res.body.data.jwt; 
+       console.log(token);
+      }
+  //   .expect(200)
+  //  .end(function(err, res) {
+  //    token = res.body.data.jwt; 
+   
+  //    //console.log(res);
+  //    console.log(token);
+   done();
+  });</code></pre></li><li class="test pass slow"><h2>Getting ALL Branches<span class="duration">564ms</span></h2><pre><code>this.timeout(5000);
+    api.post(&#x27;/api/branch&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+      {  }
+      )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(err)
+     }else{
+     console.log(res.body.data);
+     }
+     done();
+   });</code></pre></li><li class="test pass slow"><h2>Get Branch RECORD<span class="duration">608ms</span></h2><pre><code>this.timeout(5000);
+
+        api.get(&#x27;/api/branch/JBJ5UEXQ&#x27;)
+
+        .set({&#x27;Authorization&#x27;:token}) 
+
+        .expect(200)
+
+           .end(function(err, res) {
+           if(err){
+                console.log(err);
+           }else{ 
+                console.log(res.body);
+           }
+           done();
+          });</code></pre></li><li class="test pass slow"><h2>Creating(or)Update  Branch<span class="duration">1476ms</span></h2><pre><code>this.timeout(8000);
+    api.put(&#x27;/api/branch&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+        {
+            &#x22;data&#x22;: {
+              &#x22;id&#x22;: &#x22;JBJ5UEXQ&#x22;,
+              &#x22;name&#x22;: &#x22;brahkje&#x22;,
+              &#x22;phone&#x22;: &#x22;80000&#x22;,
+              &#x22;mobile&#x22;: &#x22;80080&#x22;,
+              &#x22;email&#x22;: &#x22;abc@gmail.com&#x22;,
+              &#x22;pan&#x22;: &#x22;&#x22;,
+              &#x22;tan&#x22;: &#x22;&#x22;,
+              &#x22;gstin&#x22;: &#x22;&#x22;,
+              &#x22;lat&#x22;: &#x22;1&#x22;,
+              &#x22;lng&#x22;: &#x22;1&#x22;,
+              &#x22;city&#x22;: &#x22;Hyderabad&#x22;,
+              &#x22;state&#x22;: &#x22;Andhara Pradesh&#x22;,
+              &#x22;country&#x22;: &#x22;India&#x22;,
+              &#x22;zipcode&#x22;: &#x22;50009&#x22;,
+              &#x22;isMain&#x22;: false
+            }
+        }
+     )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(err);
+     }else{
+     console.log(res.body);
+     }
+     done();
+   });</code></pre></li></ul></li><li class="suite"><h1>****----- Consumer --------******</h1><ul><li class="test pass slow"><h2>jwt token Authentication<span class="duration">2307ms</span></h2><pre><code>this.timeout(5000);
+api.post(&#x27;/api/auth&#x27;)
+   .send(
+    {
+      &#x22;data&#x22;: {
+        &#x22;userId&#x22;: &#x22;support@digitallynctech.com&#x22;,
+        &#x22;password&#x22;: &#x22;1234&#x22;,
+        &#x22;grpcode&#x22;: &#x22;DLTECH&#x22;,
+        &#x22;provider&#x22;: &#x22;email&#x22;
+      }
+    }
+    )
+    .end(function(err, res) {
+      
+      if(err){
+        console.log(err);
+      }else{
+       token = res.body.data.jwt; 
+       console.log(token);
+      }
+  //   .expect(200)
+  //  .end(function(err, res) {
+  //    token = res.body.data.jwt; 
+  //    //console.log(res);
+  //    console.log(token);
+   done();
+  });</code></pre></li><li class="test pass slow"><h2>Creating(or)Update  Record<span class="duration">615ms</span></h2><pre><code>this.timeout(8000);
+    api.put(&#x27;/api/consumer&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+        {
+            &#x22;data&#x22;: {
+              &#x22;name&#x22;: &#x22;Mahesh Reddy&#x22;,
+              &#x22;mobile&#x22;: &#x22;8008011223&#x22;,
+              &#x22;email&#x22;: &#x22;mahesh123@gmail.com&#x22;,
+              &#x22;aadhar&#x22;: &#x22;123456781234&#x22;,
+              &#x22;active&#x22;: true,
+              &#x22;address&#x22;: {
+                &#x22;lane&#x22;: &#x22;2-1-11&#x22;,
+                &#x22;city&#x22;: &#x22;Andhra Pradesh&#x22;,
+                &#x22;state&#x22;: &#x22;AP&#x22;,
+                &#x22;country&#x22;: &#x22;India&#x22;,
+                &#x22;zipcode&#x22;: &#x22;512312&#x22;
+              }
+            }
+          }
+     )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(err);
+     }else{
+     console.log(res.body.data);
+     }
+     done();
+   });</code></pre></li><li class="test pass slow"><h2>Get Particular Consumer RECORD<span class="duration">602ms</span></h2><pre><code>this.timeout(5000);
+        api.get(&#x27;/api/consumer/JB1TJWGS&#x27;)
+        .set({&#x27;Authorization&#x27;:token}) 
+        .expect(200)
+           .end(function(err, res) {
+           if(err){
+                console.log(err);
+           }else{ 
+                console.log(res.body.data);
+           }
+           done();
+          });</code></pre></li><li class="test pass slow"><h2>Get ALL Records from Consumer<span class="duration">633ms</span></h2><pre><code>this.timeout(5000);
+    api.post(&#x27;/api/consumer&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+      {  }
+      )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(err)
+     }else{
+     console.log(res.body.data);
+     }
+     done();
+   });</code></pre></li></ul></li><li class="suite"><h1>****----- Habitations --------******</h1><ul><li class="test pass slow"><h2>jwt token Authentication<span class="duration">2331ms</span></h2><pre><code>this.timeout(5000);
+api.post(&#x27;/api/auth&#x27;)
+   .send(
+    {
+      &#x22;data&#x22;: {
+        &#x22;userId&#x22;: &#x22;support@digitallynctech.com&#x22;,
+        &#x22;password&#x22;: &#x22;1234&#x22;,
+        &#x22;grpcode&#x22;: &#x22;DLTECH&#x22;,
+        &#x22;provider&#x22;: &#x22;email&#x22;
+      }
+    }
+    )
+    .end(function(err, res) {
+      
+      if(err){
+        console.log(err);
+      }else{
+       token = res.body.data.jwt; 
+       console.log(token);
+      }
+  //   .expect(200)
+  //  .end(function(err, res) {
+  //    token = res.body.data.jwt; 
+  //    //console.log(res);
+  //    console.log(token);
+   done();
+  });</code></pre></li><li class="test pass slow"><h2>Creating(or)Update  Record<span class="duration">1537ms</span></h2><pre><code>this.timeout(8000);
+    api.put(&#x27;/api/habitations&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+        {
+          &#x22;data&#x22;: {
+            &#x22;id&#x22;: &#x22;&#x22;,
+            &#x22;state&#x22;: &#x22;Telangana&#x22;,
+            &#x22;district&#x22;: &#x22;Hyderabad&#x22;,
+            &#x22;mandal&#x22;: &#x22;manikonda&#x22;,
+            &#x22;panchayath&#x22;: &#x22;manikonda&#x22;,
+            &#x22;habitation&#x22;: &#x22;manikonda&#x22;,
+            &#x22;village&#x22;: &#x22;pochamma colony&#x22;,
+            &#x22;totalPopulation&#x22;: 120000,
+            &#x22;lat&#x22;: 120,
+            &#x22;lng&#x22;: 180,
+            &#x22;active&#x22;: true
+          }
+        
+          }
+     )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(err);
+     }else{
+     console.log(res.body);
+     }
+     done();
+   });</code></pre></li><li class="test pass slow"><h2>Get User RECORD<span class="duration">618ms</span></h2><pre><code>this.timeout(5000);
+        api.get(&#x27;/api/habitations/JAXY0X3V&#x27;)
+        .set({&#x27;Authorization&#x27;:token}) 
+        .expect(200)
+           .end(function(err, res) {
+           if(err){
+                console.log(err);
+           }else{ 
+                console.log(res.body);
+           }
+           done();
+          });</code></pre></li><li class="test pass slow"><h2>Get ALL Records<span class="duration">625ms</span></h2><pre><code>this.timeout(5000);
+    api.post(&#x27;/api/habitations&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+      {  }
+      )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(err)
+     }else{
+     console.log(res.body);
+     }
+     done();
+   });</code></pre></li></ul></li><li class="suite"><h1>****----- PROFILE --------******</h1><ul><li class="test pass slow"><h2>jwt token Authentication<span class="duration">2440ms</span></h2><pre><code>this.timeout(5000);
+api.post(&#x27;/api/auth&#x27;)
+   .send(
+    {
+      &#x22;data&#x22;: {
+        &#x22;userId&#x22;: &#x22;support@digitallynctech.com&#x22;,
+        &#x22;password&#x22;: &#x22;1234&#x22;,
+        &#x22;grpcode&#x22;: &#x22;DLTECH&#x22;,
+        &#x22;provider&#x22;: &#x22;email&#x22;
+      }
+    }
+    )
+    .end(function(err, res) {
+      
+      if(err){
+        console.log(err);
+      }else{
+       token = res.body.data.jwt; 
+       console.log(token);
+      }
+  //   .expect(200)
+  //  .end(function(err, res) {
+  //    token = res.body.data.jwt; 
+  //    //console.log(res);
+  //    console.log(token);
+   done();
+  });</code></pre></li><li class="test pass slow"><h2>Creating(or)Update  Record<span class="duration">1228ms</span></h2><pre><code>this.timeout(8000);
+    api.put(&#x27;/api/profile&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+        {
+            &#x22;data&#x22;: {
+              &#x22;id&#x22;: &#x22;&#x22;,
+              &#x22;name&#x22;: &#x22;abcgfhgjhdfds&#x22;,
+              &#x22;mobile&#x22;: &#x22;80080&#x22;,
+              &#x22;email&#x22;: &#x22;abfsdhfcgac@gmail.com&#x22;,
+              &#x22;aadhar&#x22;: &#x22;148679533456781234&#x22;,
+              &#x22;password&#x22;: &#x22;1234&#x22;,
+              &#x22;role&#x22;: &#x22;USER&#x22;,
+              &#x22;active&#x22;: &#x22;true&#x22;,
+              &#x22;address&#x22;: {
+                &#x22;id&#x22;: &#x22;&#x22;,
+                &#x22;lane&#x22;: &#x22;1234&#x22;,
+                &#x22;street&#x22;: &#x22;abcd&#x22;,
+                &#x22;city&#x22;: &#x22;Hyderabad&#x22;,
+                &#x22;state&#x22;: &#x22;Telangana&#x22;,
+                &#x22;country&#x22;: &#x22;India&#x22;,
+                &#x22;zipcode&#x22;: &#x22;500089&#x22;
+              },
+              &#x22;img&#x22;: {
+                &#x22;id&#x22;: null
+              },
+              &#x22;branch&#x22;: {
+                &#x22;id&#x22;: &#x22;DL_MAIN_BRANCH&#x22;
+              }
+            }
+          }
+     )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(err);
+     }else{
+     console.log(res.body);
+     }
+     done();
+   });</code></pre></li><li class="test pass slow"><h2>Get User RECORD<span class="duration">616ms</span></h2><pre><code>this.timeout(5000);
+        api.get(&#x27;/api/profile/JAXX3POU&#x27;)
+        .set({&#x27;Authorization&#x27;:token}) 
+        .expect(200)
+           .end(function(err, res) {
+           if(err){
+                console.log(err);
+           }else{ 
+                console.log(res.body);
+           }
+           done();
+          });</code></pre></li><li class="test pass slow"><h2>Get ALL Records<span class="duration">646ms</span></h2><pre><code>this.timeout(5000);
+    api.post(&#x27;/api/profile&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+      {  }
+      )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(err)
+     }else{
+     console.log(res.body);
+     }
+     done();
+   });</code></pre></li></ul></li><li class="suite"><h1>****----- APP --------******</h1><ul><li class="test pass slow"><h2>jwt token Authentication<span class="duration">2422ms</span></h2><pre><code>this.timeout(5000);
+api.post(&#x27;/api/auth&#x27;)
+   .send(
+    {
+      &#x22;data&#x22;: {
+        &#x22;userId&#x22;: &#x22;support@digitallynctech.com&#x22;,
+        &#x22;password&#x22;: &#x22;1234&#x22;,
+        &#x22;grpcode&#x22;: &#x22;DLTECH&#x22;,
+        &#x22;provider&#x22;: &#x22;email&#x22;
+      }
+    }
+    )
+    .end(function(err, res) {
+      
+      if(err){
+        console.log(err);
+      }else{
+       token = res.body.data.jwt; 
+       console.log(token);
+      }
+  //   .expect(200)
+  //  .end(function(err, res) {
+  //    token = res.body.data.jwt; 
+   
+  //    //console.log(res);
+  //    console.log(token);
+   done();
+  });</code></pre></li><li class="test pass fast"><h2>Creating(or)Update  Branch<span class="duration">8ms</span></h2><pre><code>this.timeout(8000);
+    api.put(&#x27;/api/appmenu&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+       
+        {
+            &#x22;data&#x22;: [
+              {
+                &#x22;name&#x22;: &#x22;branchname&#x22;,
+                &#x22;menu&#x22;: &#x22;/superadmin&#x22;,
+                &#x22;role&#x22;: &#x22;superadmin&#x22;,
+                &#x22;active&#x22;: true,
+                &#x22;priority&#x22;: 1
+              }
+            ]
+          }
+          
+     )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(err);
+     }else{
+     console.log(res.body);
+     }
+     done();
+   });</code></pre></li><li class="test pass slow"><h2>Get APP RECORD<span class="duration">611ms</span></h2><pre><code>this.timeout(5000);
+
+        api.get(&#x27;/api/appmenu/Super_Admin&#x27;)
+
+        .set({&#x27;Authorization&#x27;:token}) 
+
+        .expect(200)
+
+           .end(function(err, res) {
+           if(err){
+                console.log(err);
+           }else{ 
+                console.log(res.body);
+           }
+           done();
+          });</code></pre></li></ul></li><li class="suite"><h1>****----- Service Code --------******</h1><ul><li class="test pass slow"><h2>jwt token Authentication<span class="duration">2457ms</span></h2><pre><code>this.timeout(5000);
+api.post(&#x27;/api/auth&#x27;)
+   .send(
+    {
+      &#x22;data&#x22;: {
+        &#x22;userId&#x22;: &#x22;support@digitallynctech.com&#x22;,
+        &#x22;password&#x22;: &#x22;1234&#x22;,
+        &#x22;grpcode&#x22;: &#x22;DLTECH&#x22;,
+        &#x22;provider&#x22;: &#x22;email&#x22;
+      }
+    }
+    )
+    .end(function(err, res) {
+      
+      if(err){
+        console.log(err);
+      }else{
+       token = res.body.data.jwt; 
+       console.log(token);
+      }
+  //   .expect(200)
+  //  .end(function(err, res) {
+  //    token = res.body.data.jwt; 
+  //    //console.log(res);
+  //    console.log(token);
+   done();
+  });</code></pre></li><li class="test pass slow"><h2>Creating(or)Update  Record<span class="duration">1537ms</span></h2><pre><code>this.timeout(8000);
+    api.put(&#x27;/api/servicecode&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+        {
+            &#x22;data&#x22;: {
+              &#x22;name&#x22;: &#x22;Test&#x22;,
+              &#x22;imgRequired&#x22;: true,
+              &#x22;signatureRequired&#x22;: true,
+              &#x22;hideRoute&#x22;: 1,
+              &#x22;active&#x22;: true
+            }
+          }
+     )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(err);
+     }else{
+     console.log(res.body.data);
+     }
+     done();
+   });</code></pre></li><li class="test pass slow"><h2>Get Particular Service Code RECORD<span class="duration">612ms</span></h2><pre><code>this.timeout(5000);
+        api.get(&#x27;/api/servicecode/JB24OU9W&#x27;)
+        .set({&#x27;Authorization&#x27;:token}) 
+        .expect(200)
+           .end(function(err, res) {
+           if(err){
+                console.log(err);
+           }else{ 
+                console.log(res.body);
+           }
+           done();
+          });</code></pre></li><li class="test pass slow"><h2>Get ALL Records from Service Code<span class="duration">619ms</span></h2><pre><code>this.timeout(5000);
+    api.post(&#x27;/api/servicecode&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+      {  }
+      )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(err)
+     }else{
+     console.log(res.body.data);
+     }
+     done();
+   });</code></pre></li></ul></li><li class="suite"><h1>****----- Tracking Testing --------******</h1><ul><li class="test pass slow"><h2>jwt token Authentication<span class="duration">2446ms</span></h2><pre><code>this.timeout(5000);
+api.post(&#x27;/api/auth&#x27;)
+   .send(
+    {
+      &#x22;data&#x22;: {
+        &#x22;userId&#x22;: &#x22;support@digitallynctech.com&#x22;,
+        &#x22;password&#x22;: &#x22;1234&#x22;,
+        &#x22;grpcode&#x22;: &#x22;DLTECH&#x22;,
+        &#x22;provider&#x22;: &#x22;email&#x22;
+      }
+    }
+    )
+    .end(function(err, res) {
+      
+      if(err){
+        console.log(err);
+      }else{
+       token = res.body.data.jwt; 
+       console.log(token);
+      }
+  //   .expect(200)
+  //  .end(function(err, res) {
+  //    token = res.body.data.jwt; 
+  //    //console.log(res);
+  //    console.log(token);
+   done();
+  });</code></pre></li><li class="test pass fast"><h2>Creating(or)Update  Record<span class="duration">10ms</span></h2><pre><code>this.timeout(8000);
+    api.put(&#x27;/api/tracking&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+        {
+            &#x22;data&#x22;: {
+                &#x22;id&#x22;: &#x22;&#x22;,
+                &#x22;avgTime&#x22;: 20,
+                &#x22;avgDistance&#x22;: 5,
+                &#x22;amt&#x22;: 1000,
+                &#x22;status&#x22;: &#x22;Running&#x22;,
+                &#x22;profile&#x22;: {
+                  &#x22;id&#x22;: &#x22;JATGAN40&#x22;
+                },
+                &#x22;vehicle&#x22;: {
+                  &#x22;id&#x22;: &#x22;JAXR44FF&#x22;
+                },
+                &#x22;serviceCode&#x22;: {
+                  &#x22;id&#x22;: &#x22;JB24OU9W&#x22;
+                },
+                &#x22;habitations&#x22;: {
+                  &#x22;id&#x22;: &#x22;JAXY0X3V&#x22;
+                },
+                &#x22;destination&#x22;: {
+                  &#x22;id&#x22;: &#x22;JB55J8LF&#x22;
+                },
+                &#x22;comments&#x22;: &#x22;delivered successfully&#x22;
+              }
+          }
+     )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(err);
+     }else{
+     console.log(res.body.data);
+     }
+     done();
+   });</code></pre></li><li class="test pass slow"><h2>Get Particular Tracking RECORD<span class="duration">716ms</span></h2><pre><code>this.timeout(5000);
+        api.get(&#x27;/api/tracking/JB55RG5J&#x27;)
+        .set({&#x27;Authorization&#x27;:token}) 
+        .expect(200)
+           .end(function(err, res) {
+           if(err){
+                console.log(err);
+           }else{ 
+                console.log(res.body.data);
+           }
+           done();
+          });</code></pre></li><li class="test pass slow"><h2>Get ALL Records from Tracking<span class="duration">616ms</span></h2><pre><code>this.timeout(5000);
+    api.post(&#x27;/api/tracking&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+      {  }
+      )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(err)
+     }else{
+     console.log(res.body.data);
+     }
+     done();
+   });</code></pre></li><li class="test pass slow"><h2>Get ALL Records from Tracking previous trips<span class="duration">604ms</span></h2><pre><code>this.timeout(5000);
+    api.post(&#x27;/api/tracking/previous&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+      { 
+        &#x22;data&#x22;: {
+            &#x22;profile&#x22;: &#x22;JAXR44FF&#x22;
+          }
+       }
+      )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(err)
+     }else{
+     console.log(res.body.data);
+     }
+     done();
+    
+   });</code></pre></li></ul></li><li class="suite"><h1>****----- Tracking Img --------******</h1><ul><li class="test pass slow"><h2>jwt token Authentication<span class="duration">2393ms</span></h2><pre><code>this.timeout(5000);
+api.post(&#x27;/api/auth&#x27;)
+   .send(
+    {
+      &#x22;data&#x22;: {
+        &#x22;userId&#x22;: &#x22;support@digitallynctech.com&#x22;,
+        &#x22;password&#x22;: &#x22;1234&#x22;,
+        &#x22;grpcode&#x22;: &#x22;DLTECH&#x22;,
+        &#x22;provider&#x22;: &#x22;email&#x22;
+      }
+    }
+    )
+    .end(function(err, res) {
+      
+      if(err){
+        console.log(err);
+      }else{
+       token = res.body.data.jwt; 
+       console.log(token);
+      }
+  //   .expect(200)
+  //  .end(function(err, res) {
+  //    token = res.body.data.jwt; 
+  //    //console.log(res);
+  //    console.log(token);
+   done();
+  });</code></pre></li><li class="test pass slow"><h2>Creating(or)Update  Record<span class="duration">1542ms</span></h2><pre><code>this.timeout(8000);
+    api.put(&#x27;/api/trackingimg&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+      {
+        &#x22;data&#x22;: {
+          &#x22;loadImg&#x22;: &#x22;text&#x22;,
+          &#x22;doneImg&#x22;: &#x22;text&#x22;,
+          &#x22;tracking&#x22;: {
+            &#x22;id&#x22;: &#x22;JB55Q995&#x22;
+          }
+        }
+      }
+     )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(err);
+     }else{
+     console.log(res.body.data);
+     }
+     done();
+   });</code></pre></li><li class="test pass slow"><h2>Get Particular Tracking Img RECORD<span class="duration">544ms</span></h2><pre><code>this.timeout(5000);
+        api.get(&#x27;/api/trackingimg/JB55Q995&#x27;)
+        .set({&#x27;Authorization&#x27;:token}) 
+        .expect(200)
+           .end(function(err, res) {
+           if(err){
+                console.log(err);
+           }else{ 
+                console.log(res.body);
+           }
+           done();
+          });</code></pre></li><li class="test fail"><h2>Get ALL Records from Tracking Img</h2><pre><code>this.timeout(5000);
+    api.post(&#x27;/api/trackingimg&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+      {  }
+      )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(err)
+     }else{
+     console.log(res.body.data);
+     }
+     done();
+   });</code></pre><pre class="error">Error: Timeout of 5000ms exceeded. For async tests and hooks, ensure &#x22;done()&#x22; is called; if returning a Promise, ensure it resolves.</pre></li></ul></li><li class="suite"><h1>****----- Tracking Route --------******</h1><ul><li class="test pass slow"><h2>jwt token Authentication<span class="duration">2741ms</span></h2><pre><code>this.timeout(5000);
+api.post(&#x27;/api/auth&#x27;)
+   .send(
+    {
+      &#x22;data&#x22;: {
+        &#x22;userId&#x22;: &#x22;support@digitallynctech.com&#x22;,
+        &#x22;password&#x22;: &#x22;1234&#x22;,
+        &#x22;grpcode&#x22;: &#x22;DLTECH&#x22;,
+        &#x22;provider&#x22;: &#x22;email&#x22;
+      }
+    }
+    )
+    .end(function(err, res) {
+      
+      if(err){
+        console.log(err);
+      }else{
+       token = res.body.data.jwt; 
+       console.log(token);
+      }
+  //   .expect(200)
+  //  .end(function(err, res) {
+  //    token = res.body.data.jwt; 
+  //    //console.log(res);
+  //    console.log(token);
+   done();
+  });</code></pre></li><li class="test pass slow"><h2>Creating(or)Update  Record<span class="duration">1486ms</span></h2><pre><code>this.timeout(8000);
+    api.put(&#x27;/api/trackingroute&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+        {
+            &#x22;data&#x22;: {
+              &#x22;lat&#x22;: 16.30451060,
+              &#x22;lng&#x22;: 80.43081760,
+              &#x22;tracking&#x22;: {
+                &#x22;id&#x22;: &#x22;JB55Q995&#x22;
+              }
+            }
+          }
+     )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(err);
+     }else{
+     console.log(res.body);
+     }
+     done();
+   });</code></pre></li><li class="test pass slow"><h2>Get User RECORD<span class="duration">612ms</span></h2><pre><code>this.timeout(5000);
+        api.get(&#x27;/api/trackingroute/JB57I3DZ&#x27;)
+        .set({&#x27;Authorization&#x27;:token}) 
+        .expect(200)
+           .end(function(err, res) {
+           if(err){
+                console.log(err);
+           }else{ 
+                console.log(res.body);
+           }
+           done();
+          });</code></pre></li><li class="test pass slow"><h2>Get ALL Records<span class="duration">1165ms</span></h2><pre><code>this.timeout(5000);
+    api.post(&#x27;/api/trackingroute&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+      {  }
+      )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(err)
+     }else{
+     console.log(res.body.data);
+     }
+     done();
+   });</code></pre></li></ul></li><li class="suite"><h1>****----- User Vehicle --------******</h1><ul><li class="test pass slow"><h2>jwt token Authentication<span class="duration">2316ms</span></h2><pre><code>this.timeout(5000);
+api.post(&#x27;/api/auth&#x27;)
+   .send(
+    {
+      &#x22;data&#x22;: {
+        &#x22;userId&#x22;: &#x22;support@digitallynctech.com&#x22;,
+        &#x22;password&#x22;: &#x22;1234&#x22;,
+        &#x22;grpcode&#x22;: &#x22;DLTECH&#x22;,
+        &#x22;provider&#x22;: &#x22;email&#x22;
+      }
+    }
+    )
+    .end(function(err, res) {
+      
+      if(err){
+        console.log(err);
+      }else{
+       token = res.body.data.jwt; 
+       console.log(token);
+      }
+  //   .expect(200)
+  //  .end(function(err, res) {
+  //    token = res.body.data.jwt; 
+  //    //console.log(res);
+  //    console.log(token);
+   done();
+  });</code></pre></li><li class="test pass slow"><h2>Creating(or)Update  Record<span class="duration">1537ms</span></h2><pre><code>this.timeout(8000);
+    api.put(&#x27;/api/uservehicle&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+        {
+            &#x22;data&#x22;: {
+              &#x22;profile&#x22;: {
+                &#x22;id&#x22;: &#x22;JBEPRZMI&#x22;
+              },
+              &#x22;vehicle&#x22;: {
+                &#x22;id&#x22;: &#x22;JBG39EJF&#x22;
+              },
+              &#x22;serviceCode&#x22;: {
+                &#x22;id&#x22;: &#x22;JB24P0LL&#x22;
+              },
+              &#x22;habitations&#x22;: {
+                &#x22;id&#x22;: &#x22;JB55OU2S&#x22;
+              }
+            }
+          }
+     )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(err);
+     }else{
+     console.log(res.body.data);
+     }
+     done();
+   });</code></pre></li><li class="test pass slow"><h2>Get Particular User Vehicle RECORD<span class="duration">618ms</span></h2><pre><code>this.timeout(5000);
+        api.get(&#x27;/api/uservehicle/JB614ZEV&#x27;)
+        .set({&#x27;Authorization&#x27;:token}) 
+        .expect(200)
+           .end(function(err, res) {
+           if(err){
+                console.log(err);
+           }else{ 
+                console.log(res.body.data);
+           }
+           done();
+          });</code></pre></li><li class="test pass slow"><h2>Get ALL Records from uservehicle<span class="duration">764ms</span></h2><pre><code>this.timeout(5000);
+    api.post(&#x27;/api/uservehicle&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+      {  }
+      )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(err)
+     }else{
+     console.log(res.body.data);
+     }
+     done();
+   });</code></pre></li></ul></li><li class="suite"><h1>****----- Vehicle --------******</h1><ul><li class="test pass slow"><h2>jwt token Authentication<span class="duration">2507ms</span></h2><pre><code>this.timeout(5000);
+api.post(&#x27;/api/auth&#x27;)
+   .send(
+    {
+      &#x22;data&#x22;: {
+        &#x22;userId&#x22;: &#x22;support@digitallynctech.com&#x22;,
+        &#x22;password&#x22;: &#x22;1234&#x22;,
+        &#x22;grpcode&#x22;: &#x22;DLTECH&#x22;,
+        &#x22;provider&#x22;: &#x22;email&#x22;
+      }
+    }
+    )
+    .end(function(err, res) {
+      
+      if(err){
+        console.log(err);
+      }else{
+       token = res.body.data.jwt; 
+       console.log(token);
+      }
+  //   .expect(200)
+  //  .end(function(err, res) {
+  //    token = res.body.data.jwt; 
+  //    //console.log(res);
+  //    console.log(token);
+   done();
+  });</code></pre></li><li class="test pass slow"><h2>Creating(or)Update  Record<span class="duration">553ms</span></h2><pre><code>this.timeout(8000);
+    api.put(&#x27;/api/vehicle&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+        {
+            &#x22;data&#x22;: {
+              &#x22;vehicleNo&#x22;: &#x22;AP03Z2341&#x22;,
+              &#x22;vehicleCondition&#x22;: &#x22;In good condition&#x22;,
+              &#x22;capacity&#x22;: &#x22;2000L&#x22;,
+              &#x22;active&#x22;: true,
+              &#x22;consumer&#x22;: {
+                &#x22;id&#x22;: &#x22;JAUVE3EZ&#x22;
+              }
+            }
+          }
+     )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(err);
+     }else{
+     console.log(res.body.data);
+     }
+     done();
+   });</code></pre></li><li class="test pass slow"><h2>Get Particular Vehicle RECORD<span class="duration">505ms</span></h2><pre><code>this.timeout(5000);
+        api.get(&#x27;/api/vehicle/JAXR44FF&#x27;)
+        .set({&#x27;Authorization&#x27;:token}) 
+        .expect(200)
+           .end(function(err, res) {
+           if(err){
+                console.log(err);
+           }else{ 
+                console.log(res.body.data);
+           }
+           done();
+          });</code></pre></li><li class="test pass slow"><h2>Get ALL Records from Vehicle<span class="duration">598ms</span></h2><pre><code>this.timeout(5000);
+    api.post(&#x27;/api/vehicle&#x27;)
+    .set({&#x27;Authorization&#x27;:token}) 
+    .send(
+      {  }
+      )
+    .expect(200)
+    .expect(&#x27;Content-Type&#x27;, /json/)
+    .end(function(err,res){
+     if(err){
+       console.log(err)
+     }else{
+     console.log(res.body.data);
+     }
+     done();
+   });</code></pre></li></ul></li></ul>
+        </div>
+        <script>
+        function hideSuitesWithout(className) {
+    var suites = document.querySelectorAll('#report > .suite');
+
+    for (var i = 0; i < suites.length; i++) {
+        let suite = suites[i];
+
+        var els = suite.getElementsByClassName(className);
+        if (!els.length) {
+            suite.classList.add('hidden');
+        }
+    }
+}
+
+function unhide() {
+    var suites = document.getElementsByClassName('suite hidden');
+
+    while (suites.length) {
+        suites[0].classList.remove('hidden');
+    }
+}
+
+function togglePasses() {
+    var report = document.getElementById('report');
+
+    report.classList.toggle('hide-passes');
+
+    if (report.classList.contains('hide-passes')) {
+        hideSuitesWithout('test fail');
+    } else {
+        unhide();
+    }
+}
+
+document.getElementById('toggle-passes').addEventListener('click', function(e) {
+    e.preventDefault();
+    
+    this.classList.toggle('checked');
+
+    togglePasses();
+});
+
+var tests = document.getElementsByClassName('test');
+
+for (var i = 0; i < tests.length; i++) {
+    var elem = tests[i];
+    var head = elem.children[0];
+
+    head.onclick = function () {
+        var code = this.parentElement.children[1];
+        var display = code.style.display;
+
+        if (display && display === 'block') {
+            code.style.display = 'none';
+        } else {
+            code.style.display = 'block';
+        }
+    };
+}
+        </script>
+    </body>
+</html>

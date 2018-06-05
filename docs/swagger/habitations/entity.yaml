@@ -1,0 +1,19 @@
+/habitations/{id}:
+  get:
+    tags:
+      - Habitations
+    summary: "Finds a user habitations by id"
+    description:
+      give habitation ID.
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+    responses:
+        200:
+            description: "status:1 is success; status: 0 is failure;"
+        400:
+            description: "Invalid Data"
+        500:
+            description: "Internal server error"

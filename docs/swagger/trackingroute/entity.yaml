@@ -1,0 +1,19 @@
+/trackingroute/{id}:
+  get:
+    tags:
+      - Tracking Route
+    summary: "Finds a user vehicle tracking route by id"
+    description:
+      give user vehicle Tracking Route ID.
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+    responses:
+        200:
+            description: "status:1 is success; status: 0 is failure;"
+        400:
+            description: "Invalid Data"
+        500:
+            description: "Internal server error"

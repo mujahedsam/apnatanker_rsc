@@ -1,0 +1,41 @@
+/servicecode:
+    put:
+        tags:
+            - ServiceCode
+        summary: "to create new or update existing ServiceCode"
+        description:
+            save.
+        parameters:
+          - name: body
+            in: body
+            schema:
+                type: object
+                properties:
+                    data:
+                        type: object
+                        properties:
+                            id:
+                                type: string
+                                example: ""
+                            name:
+                                type: string
+                                example: "name"
+                            imgRequired:
+                                type: boolean
+                                example: true
+                            signatureRequired:
+                                type: boolean
+                                example: true
+                            hideRoute:
+                                type: number
+                                example: 1
+                            active:
+                                type: boolean
+                                example: true
+        responses:
+            200:
+                description: "status:1 is success; status: 0 is failure;"
+            400:
+                description: "Invalid Data"
+            500:
+                description: "Internal server error"

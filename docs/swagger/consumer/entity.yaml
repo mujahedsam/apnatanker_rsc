@@ -1,0 +1,19 @@
+/consumer/{id}:
+  get:
+    tags:
+      - Consumer
+    summary: "Finds Consumer by id"
+    description:
+      Consumer Entity.
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+    responses:
+        200:
+            description: "status:1 is success; status: 0 is failure;"
+        400:
+            description: "Invalid status value"
+        500:
+            description: "Internal server error"

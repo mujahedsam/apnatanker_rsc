@@ -1,0 +1,28 @@
+/tracking/previous:
+    post:
+        tags:
+          - Tracking
+        summary: "To list of privious trips of an user"
+        description:
+            user vehicles tracking search.
+        parameters:
+          - name: body
+            in: body
+            schema:
+                type: object
+                properties:
+                    data:
+                        type: object
+                        properties:
+                            profile: 
+                                type: string
+                                example: "id"
+
+
+        responses:
+            200:
+                description: "status:1 is success; status: 0 is failure;"
+            400:
+                description: "Invalid Data"
+            500:
+                description: "Internal server error"

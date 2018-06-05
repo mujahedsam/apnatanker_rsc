@@ -1,0 +1,23 @@
+/servicecode:
+    post:
+        tags:
+          - ServiceCode
+        summary: "to search all the servicecode"
+        description:
+            service code search.
+        parameters:
+          - name: body
+            in: body
+            schema:
+                type: object
+                properties:
+                    data:
+                        type: object
+                        properties:
+        responses:
+            200:
+                description: "status:1 is success; status: 0 is failure;"
+            400:
+                description: "Invalid Data"
+            500:
+                description: "Internal server error"

@@ -1,0 +1,120 @@
+/profile:
+    put:
+        tags:
+            - Profile
+        summary: "to create new or update existing record"
+        description:
+            user profile save.
+        parameters:
+          - name: body
+            in: body
+            schema:
+                type: object
+                properties:
+                    data:
+                        type: object
+                        properties:
+                            id:
+                                type: string
+                                example: ""
+                            name:
+                                type: string
+                                example: "abcd"
+                            mobile:
+                                type: number
+                                example: "80080"
+                            email:
+                                type: string
+                                example: "abc@gmail.com"
+                            aadhar:
+                                type: string
+                                example: "123456781234"
+                            password:
+                                type: string
+                                example: "1234"
+                            role:
+                                type: string
+                                example: "USER"
+                            active:
+                                type: boolean
+                                example: true
+                            address:
+                                type: object
+                                properties:
+                                    id:
+                                        type: string
+                                        example: ""
+                                    lane:
+                                        type: string
+                                        example: "1234"
+                                    street:
+                                        type: string
+                                        example: "abcd"
+                                    city:
+                                        type: string
+                                        example: "Hyderabad"
+                                    state:
+                                        type: string
+                                        example: "Telangana"
+                                    country:
+                                        type: string
+                                        example: "India"
+                                    zipcode:
+                                        type: string
+                                        example: "500089"
+                            img:
+                                type: object
+                                properties:
+                                    id:
+                                        type: string
+                                        example: null
+                            branch:
+                                type: object
+                                properties:
+                                    id:
+                                        type: string
+                                        example: "DL_MAIN_BRANCH"
+        responses:
+            200:
+                description: "status:1 is success; status: 0 is failure;"
+            400:
+                description: "Invalid Data"
+            500:
+                description: "Internal server error"
+
+# /profile:
+#     put:
+#         tags:
+#             - Profile
+#         summary: "to create new or update existing record"
+#         description:
+#             save.
+#         parameters:
+#           - name: body
+#             in: body
+#             schema:
+#                 type: object
+#                 properties:
+#                     data:
+#                         type: object
+#                         properties:
+#                             id:
+#                                 type: string
+#                                 example: null
+#                             code:
+#                                 type: string
+#                                 example: ""
+#                             name:
+#                                 type: string
+#                                 example: ""
+#                             active:
+#                                 type: string
+#                                 example: null
+#         responses:
+#             200:
+#                 description: "status:1 is success; status: 0 is failure;"
+#             400:
+#                 description: "Invalid Data"
+#             500:
+#                 description: "Internal server error"
+

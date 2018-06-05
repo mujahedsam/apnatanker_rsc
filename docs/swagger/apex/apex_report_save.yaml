@@ -1,0 +1,46 @@
+/apexreport:
+    put:
+        tags:
+            - Apex
+        summary: "create new or update existing apex report"
+        description:
+           Apex Report Save.
+        parameters:
+          - name: body
+            in: body
+            schema:
+                type: object
+                properties:
+                    data:
+                        type: object
+                        properties:
+                            id:
+                                type: string
+                                example: null
+                            name:
+                                type: string
+                                example: "test"
+                            reportUrl:
+                                type: string
+                                example: "reportUrl"
+                            apexReportDataList:
+                                type: array
+                                items:
+                                    type: object
+                                    properties:
+                                        id:
+                                            type: string
+                                            example: "0"
+                                        name:
+                                            type: string
+                                            example: "name"
+                                        status:
+                                            type: boolean
+                                            example: true
+        responses:
+            200:
+                description: "status:1 is success; status: 0 is failure;"
+            400:
+                description: "Invalid Data"
+            500:
+                description: "Internal server error"

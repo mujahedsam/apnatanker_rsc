@@ -1,0 +1,19 @@
+/consumer/{id}:
+  delete:
+    tags:
+      - Consumer
+    summary: "delete a particular consumer by its id"
+    description:
+      delete Consumer.
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+    responses:
+        200:
+            description: "status:1 is success; status: 0 is failure;"
+        400:
+            description: "Invalid Data"
+        500:
+            description: "Internal server error"

@@ -1,0 +1,21 @@
+ [
+  {
+    "name": "default",
+    "driver": {
+      "type": "mysql",
+      "host": "35.193.251.202",
+      "port": 3306,
+      "username": "root",
+      "password": "DigitalLync!23",
+      "database": "apnatanker_dev",
+      "usePool": true
+    },
+    "autoSchemaSync": false,
+    "entities": [
+      "dist/entities/*.js"
+    ],
+    "cli": {
+      "entitiesDir": "dist/entities"
+    }
+  }
+]

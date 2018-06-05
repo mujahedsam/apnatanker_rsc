@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html style="background:#000">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>print</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <style type="text/css">
+        body {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 10px;
+            width: 21cm;
+            background: #fff;
+        }
+        
+        .header {
+            border-bottom: 2px solid #f9bc15;
+        }
+        
+        .color {
+            color: #34a850;
+        }
+        
+        span {
+            color: #383838;
+        } 
+        table {
+            border-top: none;
+            border-collapse: collapse;
+            padding: 0px;
+        }
+        
+        th,
+        td {
+            padding: 10px 22px;
+        }
+        
+        th {
+            color: grey;
+        }
+    </style>
+</head>
+
+<body>
+    <table align="center" width="100%">
+        <tr class="header">
+
+            <td align="center">
+                <h2 class="color">{{this.data.heading}}</h2>
+            </td>
+
+        </tr>
+    </table>
+
+    <table align="center" width="100%">
+            <tbody>
+            {{#each this.data.groupHead}}
+            <tr>
+                <td style="display:inline">{{@key}}</td>
+                <td>{{this}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+
+     <table align="center" width="100%">
+                <tbody>
+                    <tr class="header">
+                        {{#each this.data.dataList}} {{#if @first }} {{#each this}}
+                        <th>{{@key}}</th>
+                        {{/each}} {{/if}} {{/each}}
+                    </tr>
+
+                    {{#each this.dataList}}
+                    <tr>
+                        {{#each this}}
+                        <td>{{this}}</td>
+                        {{/each}}
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+
+
+</body>
+
+</html>
+
+
+    </div>
+</body>
+
+</html>

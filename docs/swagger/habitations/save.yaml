@@ -1,0 +1,56 @@
+/habitations:
+    put:
+        tags:
+            - Habitations
+        summary: "to create new or update existing Habitations"
+        description:
+            save.
+        parameters:
+          - name: body
+            in: body
+            schema:
+                type: object
+                properties:
+                    data:
+                        type: object
+                        properties:
+                            id:
+                                type: string
+                                example: ""
+                            state:
+                                type: string
+                                example: "Telangana"
+                            district:
+                                type: string
+                                example: "Hyderabad"
+                            mandal:
+                                type: string
+                                example: "manikonda"
+                            panchayath:
+                                type: string
+                                example: "manikonda"
+                            habitation:
+                                type: string
+                                example: "manikonda"
+                            village:
+                                type: string
+                                example: "pochamma colony"
+                            totalPopulation:
+                                type: number
+                                example: 120000
+                            lat:
+                                type: number
+                                example: 120
+                            lng:
+                                type: number
+                                example: 180
+                            active:
+                                type: boolean
+                                example: true
+        responses:
+            200:
+                description: "status:1 is success; status: 0 is failure;"
+            400:
+                description: "Invalid Data"
+            500:
+                description: "Internal server error"

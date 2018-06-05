@@ -1,0 +1,40 @@
+/appmenu:
+    put:
+        tags:
+            - App
+        summary: "to create new or update existing branch"
+        description:
+            save.
+        parameters:
+          - name: body
+            in: body
+            schema:
+                type: object
+                properties:
+                    data:
+                       type: array
+                       items:
+                            type: object
+                            properties:
+                                name:
+                                    type: string
+                                    example: "branchname"
+                                menu:
+                                    type: string
+                                    example: "/superadmin"
+                                role:
+                                    type: string
+                                    example: "superadmin"
+                                active:
+                                    type: boolean
+                                    example: true
+                                priority:
+                                    type: number
+                                    example: 1
+        responses:
+            200:
+                description: "status:1 is success; status: 0 is failure;"
+            400:
+                description: "Invalid Data"
+            500:
+                description: "Internal server error"

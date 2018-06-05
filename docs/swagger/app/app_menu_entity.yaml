@@ -1,0 +1,18 @@
+/appmenu/{role}:
+  get:
+    tags:
+      - App
+    description:
+      App Menu Entity.
+    parameters:
+      - name: role
+        in: path
+        required: true
+        type: string
+    responses:
+        200:
+            description: "status:1 is success; status: 0 is failure;"
+        400:
+            description: "Invalid Data"
+        500:
+            description: "Internal server error"

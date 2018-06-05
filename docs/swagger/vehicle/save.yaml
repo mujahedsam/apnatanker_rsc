@@ -1,0 +1,44 @@
+/vehicle:
+    put:
+        tags:
+            - Vehicle
+        summary: "to create new or update existing Vehicle"
+        description:
+            save.
+        parameters:
+          - name: body
+            in: body
+            schema:
+                type: object
+                properties:
+                    data:
+                        type: object
+                        properties:
+                            id:
+                                type: string
+                                example: ""
+                            vehicleNo:
+                                type: string
+                                example: "AP03Z1234"
+                            vehicleCondition:
+                                type: string
+                                example: "In good condition"
+                            capacity:
+                                type: string
+                                example: "2000L"
+                            active:
+                                type: boolean
+                                example: true
+                            consumer:
+                                type: object
+                                properties:
+                                    id:
+                                        type: string
+                                        example: "consumer id"
+        responses:
+            200:
+                description: "status:1 is success; status: 0 is failure;"
+            400:
+                description: "Invalid Data"
+            500:
+                description: "Internal server error"

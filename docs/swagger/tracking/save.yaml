@@ -1,0 +1,71 @@
+/tracking:
+    put:
+        tags:
+            - Tracking
+        summary: "to create new or update existing vehicle tracking"
+        description:
+            save.
+        parameters:
+          - name: body
+            in: body
+            schema:
+                type: object
+                properties:
+                    data:
+                        type: object
+                        properties:
+                            id:
+                                type: string
+                                example: ""
+                            avgTime:
+                                type: number
+                                example: 20
+                            avgDistance:
+                                type: number
+                                example: 5
+                            amt:
+                                type: number
+                                example: 1000
+                            status:
+                                type: string
+                                example: "Running"
+                            profile:
+                                type: object
+                                properties:
+                                    id:
+                                        type: string
+                                        example: "profile id"
+                            vehicle:
+                                type: object
+                                properties:
+                                    id:
+                                        type: string
+                                        example: "vehicle id"
+                            serviceCode:
+                                type: object
+                                properties:
+                                    id:
+                                        type: string
+                                        example: "serviceCode id"
+                            habitations:
+                                type: object
+                                properties:
+                                    id:
+                                        type: string
+                                        example: "habitations id"
+                            destination:
+                                type: object
+                                properties:
+                                    id:
+                                        type: string
+                                        example: "destination id"
+                            comments:
+                                type: string
+                                example: 'delivered successfully'
+        responses:
+            200:
+                description: "status:1 is success; status: 0 is failure;"
+            400:
+                description: "Invalid Data"
+            500:
+                description: "Internal server error"
